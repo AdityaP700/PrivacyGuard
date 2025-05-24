@@ -1,1 +1,1 @@
-console.log("PrivacyGuard popup loaded.");
+document.getElementById('status').textContent = 'Site appears safe.';
