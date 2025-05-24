@@ -1,12 +1,48 @@
+<!-- privacyguard/learn-more.html -->
 <!DOCTYPE html>
 <html>
 <head>
+  <title>About PrivacyGuard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="learn-more.css">
 </head>
 <body>
   <div class="container p-3">
-    <h1 class="title is-4">About PrivacyGuard</h1>
-    <p>Learn more about site safety...</p>
+    <section class="section box">
+      <h1 class="title is-4">About PrivacyGuard Site Safety</h1>
+      <div class="content">
+        <p>PrivacyGuard helps you identify potentially unsafe websites.</p>
+
+        <button class="button is-link is-small mb-3" id="toggleBtn">Show More</button>
+
+        <div id="details" style="display: none;">
+          <p><strong>Understanding Alerts:</strong></p>
+          <ul>
+            <li><span class="tag is-success">Green</span> Appears safe based on our analysis or your previous whitelisting.</li>
+            <li><span class="tag is-warning">Yellow</span> Uses HTTP or has suspicious features. You may proceed, mark it as safe, or block it.</li>
+            <li><span class="tag is-danger">Red</span> High risk (e.g., phishing). Proceed with extreme caution or block it.</li>
+          </ul>
+
+          <p><strong>User Actions:</strong></p>
+          <ul>
+            <li><span class="action-label safe">Mark as Safe</span>: Add this site to your personal whitelist.</li>
+            <li><span class="action-label proceed">Proceed Anyway</span>: Continue to the site despite warnings.</li>
+            <li><span class="action-label block">Block Site</span>: Prevent further access to this site.</li>
+            <li><span class="action-label info">Learn More</span>: You're already here!</li>
+          </ul>
+        </div>
+
+        <p class="mt-4">Your browsing data is processed <strong>locally</strong> on your device to protect your privacy.</p>
+
+        <div class="buttons mt-4">
+          <button class="button is-success is-light" id="safeBtn">Mark as Safe</button>
+          <button class="button is-warning is-light" id="proceedBtn">Proceed Anyway</button>
+          <button class="button is-danger is-light" id="blockBtn">Block Site</button>
+        </div>
+      </div>
+    </section>
   </div>
+
+  <script src="learn-more.js"></script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+/* learn-more.css */
+.action-label {
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-right: 6px;
+}
+
+.action-label.safe {
+  background-color: #d1f7c4;
+  color: #27632a;
+  border: 1px solid #b8e8aa;
+}
+
+.action-label.proceed {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+.action-label.block {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.action-label.info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
