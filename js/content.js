@@ -1,0 +1,1 @@
+console.log("PrivacyGuard content script loaded.");
