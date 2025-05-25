@@ -1,0 +1,25 @@
+body {
+      width: 350px; /* Or your preferred width */
+      font-size: 14px;
+    }
+    .status-icon { /* For a colored circle or icon later */
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .status-green { background-color: #48c78e; } /* Bulma's success green */
+    .status-yellow { background-color: #ffdd57; } /* Bulma's warning yellow */
+    .status-red { background-color: #f14668; } /* Bulma's danger red */
+    .status-grey { background-color: #dbdbdb; } /* Bulma's default grey for unknown/loading */
+    .url-display {
+      word-break: break-all; /* To prevent long URLs from breaking layout */
+      font-size: 0.9em;
+      margin-bottom: 10px;
+      color: #7a7a7a;
+    }
+    .feature-list li {
+        font-size: 0.9em;
+    }

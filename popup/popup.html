@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>PrivacyGuard Status</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="popup.css"> <!-- Link to your custom CSS -->
+  <style>
+    /* Basic styling for the popup */
+    
+  </style>
 </head>
 <body>
-  <div class="container p-3">
-    <h1 class="title is-4">PrivacyGuard</h1>
-    <p id="status">Site appears safe.</p>
-  </div>
+  <section class="section p-3">
+    <div class="container">
+      <div class="level is-mobile">
+        <div class="level-left">
+          <h1 class="title is-5">PrivacyGuard</h1>
+        </div>
+        <div class="level-right">
+            <a id="learnMoreLinkPopup" href="#" title="Learn More">
+                <span class="icon is-small"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1-8h-2V7h2v2z"/></svg></span>
+            </a>
+        </div>
+      </div>
+      <hr class="mt-1 mb-2">
+
+      <div class="mb-3">
+        <p class="heading is-size-7 mb-1">Current Site Status:</p>
+        <p id="siteStatusText" class="is-size-6 has-text-weight-semibold">
+          <span id="statusIcon" class="status-icon status-grey"></span>
+          <span id="statusText">Checking...</span>
+        </p>
+        <p id="siteUrl" class="url-display">N/A</p>
+        <p id="siteScore" class="is-size-7"></p>
+      </div>
+
+      <div id="featureBlock" class="mb-3" style="display: none;">
+        <p class="heading is-size-7 mb-1">Key Factors:</p>
+        <ul id="featureList" class="list"></ul>
+      </div>
+
+      <div class="field">
+        <label class="checkbox is-small">
+          <input type="checkbox" id="p2pToggle">
+          Enable P2P Threat Sharing
+        </label>
+      </div>
+
+      <button id="reanalyzeButton" class="button is-info is-small is-fullwidth mt-2">Re-analyze Page</button>
+    </div>
+  </section>
   <script src="popup.js"></script>
 </body>
 </html>
