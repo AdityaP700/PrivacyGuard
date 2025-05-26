@@ -1,0 +1,3 @@
+[console_scripts]
+tensorflowjs_converter = tensorflowjs.converters.converter:pip_main
+tensorflowjs_wizard = tensorflowjs.converters.wizard:pip_main
