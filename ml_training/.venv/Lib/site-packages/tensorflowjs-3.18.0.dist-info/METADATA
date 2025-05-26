@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: tensorflowjs
+Version: 3.18.0
+Author: Google LLC
+Author-email: opensource@google.com
+Home-page: https://js.tensorflow.org/
+License: Apache 2.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: JavaScript
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: tensorflow>=2.1.0,<3
+Requires-Dist: six>=1.12.0,<2
+Requires-Dist: tensorflow-hub>=0.7.0,<0.13
+Requires-Dist: packaging~=20.9
+Provides-Extra: PyInquirer
+Requires-Dist: PyInquirer==1.0.3; extra == 'PyInquirer'
+Provides-Extra: all
+Requires-Dist: PyInquirer==1.0.3; extra == 'all'
+Provides-Extra: wizard
+Requires-Dist: PyInquirer==1.0.3; extra == 'wizard'
+
+# tensorflowjs: The Python Package for TensorFlow.js
+
+The **tensorflowjs** pip package contains libraries and tools for
+[TensorFlow.js](https://js.tensorflow.org).
+
+Use following command to install the library with support of interactive CLI:
+```bash
+pip install tensorflowjs[wizard]
+```
+
