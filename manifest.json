@@ -29,6 +29,8 @@
     "default_title": "PrivacyGuard"
   },
   "web_accessible_resources": [
-    "learn-more.html"
+    "learn-more.html",
+    "js/tfjs_model/model.json",
+    "js/tfjs_model/group1-shard1of1.bin"
   ]
 }
