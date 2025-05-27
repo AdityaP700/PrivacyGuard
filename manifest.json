@@ -1,14 +1,36 @@
 {
   "manifest_version": 2,
-  "name": "PrivacyGuard Content Test",
-  "version": "0.1",
-  "description": "Testing content script injection.",
+  "name": "PrivacyGuard",
+  "version": "1.0",
+  "description": "AI-Powered, P2P Anti-Phishing Browser Extension.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "<all_urls>",
+    "storage",
+    "tabs" 
+  ],
+  "background": {
+    "service_worker": "js/background.js"
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["js/content.js"],
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "all_frames": true   
     }
   ],
-  "permissions": ["<all_urls>"]
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "PrivacyGuard"
+  },
+  "web_accessible_resources": [
+    "learn-more.html",
+    "js/tfjs_model/model.json",
+    "js/tfjs_model/group1-shard1of1.bin"
+  ]
 }
