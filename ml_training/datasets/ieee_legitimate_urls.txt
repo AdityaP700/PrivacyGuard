@@ -1,4 +1,0 @@
-phishing_urls =[]
-legitimate_urls =[]
-
-files = ['deephides_small_dataset/val.txt', 'deephides_small_dataset/test.txt', 'deephides_small_dataset/train]

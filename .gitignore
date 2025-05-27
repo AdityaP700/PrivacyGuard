@@ -1,0 +1,105 @@
+# Virtual Environment
+venv/
+venv-3.11/
+venv311/
+env/
+.env/
+.venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# ML Training artifacts
+ml_training/trained_model/tfjs_model/
+*.h5
+*.keras
+*.pkl
+*.joblib
+
+# JavaScript
+node_modules/
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IDE - PyCharm
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Chrome Extension
+*.crx
+*.pem
+# ML Training data and models
+# Large ML training data and models
+ml_training/trained_model/
+ml_training/processed_data/
+ml_training/datasets/
+ml_training/phishing_detector_saved_model/
+
+# TensorFlow.js model files
+js/tfjs.model/*.bin
+js/tfjs.model/group*
+
+# Large dataset files
+ieee_legitimate_urls.txt
+ieee_phishing_urls.txt
+
+# Binary files
+*.bin
+
+# Keep only necessary model files
+!js/tfjs.model/model.json
