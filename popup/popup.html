@@ -2,51 +2,67 @@
 <html>
 <head>
   <title>PrivacyGuard Status</title>
+  <!-- Bulma via CDN - Ensure your extension's CSP allows cdn.jsdelivr.net for style-src -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <link rel="stylesheet" href="popup.css"> <!-- Link to your custom CSS -->
+  <!-- Link to your custom CSS if any for finer popup tweaks -->
+  <!-- <link rel="stylesheet" href="../css/popup_style.css"> -->
   <style>
-    /* Basic styling for the popup */
-    
+    body { width: 350px; font-size: 14px; }
+    .status-icon { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+    .status-green { background-color: #48c78e; }
+    .status-yellow { background-color: #ffdd57; }
+    .status-red { background-color: #f14668; }
+    .status-grey { background-color: #dbdbdb; }
+    .url-display { word-break: break-all; font-size: 0.9em; margin-bottom: 5px; color: #7a7a7a; }
+    .score-display { font-size: 0.8em; color: #7a7a7a; margin-bottom: 10px; }
+    .key-factors-heading { font-size: 0.7rem; text-transform: uppercase; color: #7a7a7a; margin-bottom: 3px; }
+    #featureList li { font-size: 0.9em; margin-bottom: 2px; padding-left: 10px; position: relative; }
+    #featureList li::before { content: "•"; position: absolute; left: 0; color: #363636; }
+    hr { margin: 0.5rem 0; }
   </style>
 </head>
 <body>
   <section class="section p-3">
     <div class="container">
-      <div class="level is-mobile">
+      <div class="level is-mobile mb-1">
         <div class="level-left">
           <h1 class="title is-5">PrivacyGuard</h1>
         </div>
         <div class="level-right">
             <a id="learnMoreLinkPopup" href="#" title="Learn More">
-                <span class="icon is-small"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1-8h-2V7h2v2z"/></svg></span>
+                <span class="icon is-small has-text-info"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1-8h-2V7h2v2z"/></svg></span>
             </a>
         </div>
       </div>
       <hr class="mt-1 mb-2">
 
+      <div class="mb-2">
+        <p class="heading is-size-7 mb-0">Current Site:</p>
+        <p id="siteUrl" class="url-display">Loading URL...</p>
+      </div>
+
       <div class="mb-3">
-        <p class="heading is-size-7 mb-1">Current Site Status:</p>
+        <p class="heading is-size-7 mb-1">Status:</p>
         <p id="siteStatusText" class="is-size-6 has-text-weight-semibold">
           <span id="statusIcon" class="status-icon status-grey"></span>
           <span id="statusText">Checking...</span>
         </p>
-        <p id="siteUrl" class="url-display">N/A</p>
-        <p id="siteScore" class="is-size-7"></p>
+        <p id="siteScore" class="score-display"></p>
       </div>
 
       <div id="featureBlock" class="mb-3" style="display: none;">
-        <p class="heading is-size-7 mb-1">Key Factors:</p>
+        <p class="key-factors-heading mb-1">Key Factors:</p>
         <ul id="featureList" class="list"></ul>
       </div>
-
-      <div class="field">
+      <hr class="mt-2 mb-2">
+      <div class="field mb-2">
         <label class="checkbox is-small">
           <input type="checkbox" id="p2pToggle">
-          Enable P2P Threat Sharing
+          Enable P2P Threat Sharing (Mock)
         </label>
       </div>
 
-      <button id="reanalyzeButton" class="button is-info is-small is-fullwidth mt-2">Re-analyze Page</button>
+      <button id="reanalyzeButton" class="button is-info is-small is-fullwidth">Re-analyze Page</button>
     </div>
   </section>
   <script src="popup.js"></script>
