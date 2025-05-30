@@ -85,7 +85,6 @@ Thumbs.db
 *.pem
 
 ml_training/trained_model/
-ml_training/datasets/
 ml_training/phishing_detector_saved_model/
 
 # TensorFlow.js model files
@@ -110,8 +109,7 @@ ml_training/venv311/
 ml_training/.venv/
 
 # Ignore datasets
-ml_training/datasets/
-ml_training/processed_data/
+ml_training/dat
 
 # Ignore TensorFlow/PyTorch/numpy compiled files
 *.dll

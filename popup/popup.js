@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const reanalyzeButtonEl = document.getElementById('reanalyzeButton');
     const learnMoreLinkPopupEl = document.getElementById('learnMoreLinkPopup');
 
-    const P2P_ENABLED_KEY = 'privacyGuardP2PEnabled'; // Ensure this matches content.js/config.js
-    const LAST_ANALYSIS_KEY_PREFIX = 'privacyGuardLastAnalysis_'; // Ensure this matches
+    const P2P_ENABLED_KEY = 'privacyGuardP2PEnabled';
+    const LAST_ANALYSIS_KEY_PREFIX = 'privacyGuardLastAnalysis_'; 
 
     // Load P2P toggle state
     chrome.storage.local.get([P2P_ENABLED_KEY], (result) => {
@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (response && response.status === "analysisRefreshed") {
                             updatePopupDisplayFromAnalysis(response);
                         } else {
-                            // If response is not what we expect, try storage
                             setTimeout(() => updatePopupForTab(tabs[0]), 200);
                         }
                     }
@@ -92,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             console.log("POPUP_DEBUG: Sending getStatus message to content script for tab", tab.id);
-            // Set to "Checking..." explicitly before sending message
             updatePopupDisplayFromAnalysis({ mode: 'N/A', message: 'Status: Checking with page...', score: null, features: {}, whitelisted: false, url: tab.url });
 
             chrome.tabs.sendMessage(tab.id, { action: "getStatus" }, response => {
@@ -136,19 +134,19 @@ document.addEventListener('DOMContentLoaded', () => {
         statusIconEl.className = `status-icon ${iconColorClass}`;
         siteScoreEl.textContent = scoreText;
 
-        featureListEl.innerHTML = ''; // Clear previous features
+        featureListEl.innerHTML = ''; 
         let factorsFound = false;
         if (features && Object.keys(features).length > 0 && mode !== 'green' && mode !== 'N/A' && !whitelisted) {
-            if (features.isHTTP) { addFactorItem("⚠️ Uses insecure HTTP connection."); factorsFound = true; }
-            if (features.hasForms) { addFactorItem("📄 Contains password input fields."); factorsFound = true; }
-            if (features.length > 75) { addFactorItem(`📏 URL is very long (${features.length} chars).`); factorsFound = true; }
-            if (features.hasHomograph) { addFactorItem("🚨 Suspicious characters (homograph) in domain!", "red"); factorsFound = true; }
+            if (features.isHTTP) { addFactorItem("Uses insecure HTTP connection."); factorsFound = true; }
+            if (features.hasForms) { addFactorItem(" Contains password input fields."); factorsFound = true; }
+            if (features.length > 75) { addFactorItem(` URL is very long (${features.length} chars).`); factorsFound = true; }
+            if (features.hasHomograph) { addFactorItem("Suspicious characters (homograph) in domain!", "red"); factorsFound = true; }
             
-            if (features.p2pFlag === 'p2p_phishing') { addFactorItem("🌐 P2P Network: Reported High Risk (mock).", "purple"); factorsFound = true;}
-            else if (features.p2pFlag === 'p2p_safe') { addFactorItem("🌐 P2P Network: Considered Safer (mock).", "blue"); factorsFound = true; }
+            if (features.p2pFlag === 'p2p_phishing') { addFactorItem(" P2P Network: Reported High Risk (mock).", "purple"); factorsFound = true;}
+            else if (features.p2pFlag === 'p2p_safe') { addFactorItem(" P2P Network: Considered Safer (mock).", "blue"); factorsFound = true; }
 
             // if (modelUsed && (mode === 'yellow' || mode === 'red')) { // Already in status message
-            //     addFactorItem("🧠 AI model contributed to assessment."); factorsFound = true;
+            //     addFactorItem(" AI model contributed to assessment."); factorsFound = true;
             // }
         }
 
@@ -157,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addFactorItem(text, color = null) {
         const li = document.createElement('li');
-        li.innerHTML = text; // Use innerHTML if text contains HTML (like <strong>)
+        li.innerHTML = text; 
         if (color) li.style.color = color;
         featureListEl.appendChild(li);
     }
@@ -259,5 +257,14 @@ function updatePopupUI(data) {
         `;
         return;
     }
+}
+
+function truncateUrl(url, maxLength = 40) {
+    if (!url) return '';
+    if (url.length <= maxLength) return url;
+    
+    const start = url.substring(0, Math.floor(maxLength/2));
+    const end = url.substring(url.length - Math.floor(maxLength/2));
+    return `${start}...${end}`;
 }
 });

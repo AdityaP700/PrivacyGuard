@@ -18,17 +18,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     sendResponse({ status: "success", tabId: tabId });
                 }
             });
-            return true; // Indicates an async response
+            return true; 
         } else {
             console.warn("Background: Missing tab ID or data for cacheAnalysisResult.");
             sendResponse({ status: "error", message: "Missing tab ID or data." });
         }
     }
-    // Add other listeners here if needed, e.g., for P2P later
-    return false; // For synchronous responses or if not handling this message
+    return false; 
 });
 
-// Optional: Clean up storage when a tab is closed
 chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
     const storageKey = `${LAST_ANALYSIS_KEY_PREFIX}${tabId}`;
     chrome.storage.local.remove(storageKey, () => {

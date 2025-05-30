@@ -6,59 +6,6 @@ const LAST_ANALYSIS_KEY_PREFIX = "privacyGuardLastAnalysis_";
 let model = null; 
 let initialModelLoadPromise = null; 
 const MODEL_PATH = chrome.runtime.getURL("js/tfjs_model/model.json"); 
-const GLOBALLY_TRUSTED_DOMAINS = [
-    'google.com',             // 1
-    'youtube.com',            // 2
-    'facebook.com',           // 3
-    'wikipedia.org',          // 4
-    'instagram.com',          // 5
-    'bing.com',               // 6
-    'reddit.com',             // 7
-    'x.com',                  // 8 (formerly twitter.com)
-    'chatgpt.com',            // 9
-    'yandex.ru',              // 10
-    'whatsapp.com',           // 11
-    'amazon.com',             // 12
-    'yahoo.com',              // 13
-    'yahoo.co.jp',            // 14
-    'weather.com',            // 15
-    'duckduckgo.com',         // 16
-    'tiktok.com',             // 17
-    'temu.com',               // 18
-    'naver.com',              // 19
-    'microsoftonline.com',    // 20
-    'twitch.tv',              // 21
-    'linkedin.com',           // 23
-    'live.com',               // 24
-    'fandom.com',             // 25
-    'microsoft.com',          // 26
-    'msn.com',                // 27
-    'netflix.com',            // 28
-    'office.com',             // 29
-    'pinterest.com',          // 30
-    'mail.ru',                // 31
-    'openai.com',             // 32
-    'aliexpress.com',         // 33
-    'paypal.com',             // 34
-    'vk.com',                 // 35
-    'canva.com',              // 36
-    'github.com',             // 37
-    'spotify.com',            // 38
-    'discord.com',            // 39
-    'apple.com',              // 40
-    'imdb.com',               // 41
-    'globo.com',              // 42
-    'roblox.com',             // 43
-    'amazon.co.jp',           // 44
-    'quora.com',              // 45
-    'bilibili.com',           // 46
-    'samsung.com',            // 47
-    'ebay.com',               // 48
-    'nytimes.com',            // 49
-    'walmart.com',
-    'claude.com',
-    'recaptcha.net'
-];
 
 // --- SCALER PARAMETERS ---
 const SCALER_MIN_ARRAY = [
@@ -382,16 +329,15 @@ async function analyzeURL(url, dom, isReanalysis = false) {
         return currentAnalysisResult;
     }
 
-    // Wait for the initial model loading attempt to complete if it hasn't already.
-    // The global `model` variable will be set (or null) by the time this await resolves.
+
     await initialModelLoadPromise;
 
     const extractedData = extractAllFeatures(url, dom);
     if (!extractedData || !extractedData.scaledMlFeatures) {
     console.error("ANALYZE_URL: Feature extraction failed or returned null ML features.");
     currentAnalysisResult = {
-        score: -1, // Or 0 for Green if we want to fail safe
-        mode: "error", // Or "green"
+        score: -1, 
+        mode: "error", 
         features: extractedData ? extractedData.heuristicFeatures : { hostname: new URL(url).hostname, isHTTP: url.startsWith("http:"), hasHomograph: false, p2pFlag: null, length: url.length, hasForms: false, isEdu: false }, // Provide defaults
         whitelisted: false,
         url: url,
@@ -426,8 +372,8 @@ async function analyzeURL(url, dom, isReanalysis = false) {
             return currentAnalysisResult;
         }
     }
-    let p2pInfluence = 0; // 0: no influence, positive: riskier, negative: safer
-    heuristicFeatures.p2pFlag = null; // For popup display
+    let p2pInfluence = 0; 
+    heuristicFeatures.p2pFlag = null; 
 
     const p2pSettings = await new Promise(resolve => {
         chrome.storage.local.get([P2P_ENABLED_KEY, P2P_USER_CONFIRMED_SAFE_KEY, P2P_USER_CONFIRMED_PHISHING_KEY], result => resolve(result));
@@ -449,7 +395,6 @@ async function analyzeURL(url, dom, isReanalysis = false) {
     }
     let heuristicScore = 0;
     if (heuristicFeatures.length > 50) {
-        // But don't penalize if it's a chat/session URL pattern
         if (!url.includes('/chat/') && !url.includes('/session/')) {
             heuristicScore += 20;
         }
@@ -464,7 +409,6 @@ async function analyzeURL(url, dom, isReanalysis = false) {
     if (heuristicFeatures.isEdu)
         heuristicScore = Math.max(0, heuristicScore - 20);
     if (heuristicFeatures.hasHomograph) {
-        // Apply homograph penalty
         console.log("ANALYZE_URL: Homograph detected, adding penalty.");
         heuristicScore += 60;
     }
@@ -614,8 +558,8 @@ function showAlert(analysisData) {
     const {
         mode, score, url: currentUrl, features, whitelisted,
         modelUsed, 
-        heuristicScoreCalculated, // Use this name if it's in currentAnalysisResult
-        modelPredictionRaw     // Use this name
+        heuristicScoreCalculated, 
+        modelPredictionRaw     
     } = analysisData;
 
     // Use consistent names from currentAnalysisResult for score breakdown
@@ -625,7 +569,7 @@ function showAlert(analysisData) {
 
     console.log(`SHOW_ALERT: Mode: ${mode}, Score: ${score}, URL: ${currentUrl}`);
 
-    const existingAlertContainerID = 'privacyguard-onpage-alert-container'; // Unique ID for our container
+    const existingAlertContainerID = 'privacyguard-onpage-alert-container'; 
     const existingAlertContainer = document.getElementById(existingAlertContainerID);
     if (existingAlertContainer) existingAlertContainer.remove();
 
@@ -636,20 +580,16 @@ function showAlert(analysisData) {
 
     const alertContainer = document.createElement('div');
     alertContainer.id = existingAlertContainerID;
-    // Basic font for all alerts - will be overridden by specific alert styles if needed
     alertContainer.style.fontFamily = 'Arial, Helvetica, sans-serif';
     alertContainer.style.fontSize = '14px';
     alertContainer.style.lineHeight = '1.5';
 
 let alertMessage = "";
-    // --- CORRECTED scoreDetails CONSTRUCTION ---
     let scoreDetails = `Score: ${score}`;
     if (modelUsed) {
-        // Use the specific variables from analysisData for the breakdown
         scoreDetails += ` (H:${heuristicScoreCalculated}, ML:${(modelPredictionRaw * 100).toFixed(0)})`;
     }
-    // --- END CORRECTION ---
-    // --- Button Base Styles & Hover Effect ---
+  
     const btnBaseStyle = `padding: 8px 12px; font-size: 13px; border-radius: 4px; border: 1px solid transparent; cursor:pointer; margin-right: 6px; transition: opacity 0.2s;`;
     const btnHoverEffect = ` onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" `;
 
@@ -695,11 +635,10 @@ let alertMessage = "";
         document.getElementById('pg-red-goback').addEventListener('click', () => { window.history.back(); alertContainer.remove(); });
         document.getElementById('pg-red-proceed').addEventListener('click', () => alertContainer.remove());
         document.getElementById('pg-red-learnmore').addEventListener('click', (e) => { e.preventDefault(); window.open(chrome.runtime.getURL('learn-more.html'), '_blank'); });
-        // Add listener for pg-red-report if you add the button back
 
     } else if (mode === 'yellow') {
         console.log("SHOW_ALERT: Displaying MINIMAL YELLOW corner notification.");
-        alertContainer.id = 'privacyguard-yellow-alert'; // More specific ID if needed, but main container ID is fine
+        alertContainer.id = 'privacyguard-yellow-alert'; 
         alertContainer.style.cssText = `
             position: fixed; top: 20px; right: 20px; width: 370px;
             background-color: #fff3cd; color: #664d03; 
@@ -753,8 +692,8 @@ let alertMessage = "";
                     }
                 });
                 alertContainer.remove();
-                const reanalysisData = await analyzeURL(window.location.href, document, true); //This re-analysis is key
-                showAlert(reanalysisData); // This will typically show no alert as it's now whitelisted
+                const reanalysisData = await analyzeURL(window.location.href, document, true); 
+                showAlert(reanalysisData); 
                 if (chrome.runtime?.id) { chrome.runtime.sendMessage({ action: "storeAnalysisResult", data: reanalysisData, tabId: null });}
             }
         });
@@ -774,7 +713,7 @@ async function performAnalysisAndShowAlert(isReanalysis = false) {
                 document,
                 isReanalysis
             );
-            showAlert(analysisData); // Uses global currentAnalysisResult which is set in analyzeURL
+            showAlert(analysisData); 
         } else {
             console.error("PERFORM_ANALYSIS: chrome.storage.local not available.");
         }
@@ -788,13 +727,12 @@ async function performAnalysisAndShowAlert(isReanalysis = false) {
 // --- Initial Script Execution Flow ---
 initialModelLoadPromise = attemptModelLoadOnce()
     .then((loaded) => {
-        model = loaded; // Set the global model variable AFTER load attempt
+        model = loaded; 
         if (model) {
             console.log("INIT_FLOW: Global 'model' set successfully.");
         } else {
             console.error("INIT_FLOW: Global 'model' IS NULL. Model loading failed.");
         }
-        // Proceed with first analysis regardless of model load success (it will fallback)
         if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", () =>
                 performAnalysisAndShowAlert(false)
@@ -840,7 +778,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         sendResponse(currentAnalysisResult);
                     } else {
                         // This case should be rare if performAnalysisAndShowAlert ran above,
-                        // but as a fallback if analysis still somehow failed or is for a different URL context.
+                       
                         console.warn("GET_STATUS: Analysis result not available or mismatched after attempt. Sending 'pending'.");
                         sendResponse({ mode: 'N/A', message: 'Analysis pending or failed for this tab.', score: null, features: {}, whitelisted: false, url: window.location.href });
                     }

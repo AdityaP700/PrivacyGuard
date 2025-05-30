@@ -119,7 +119,7 @@ body {
 }
 
 .toggle-btn::after {
-  content: "▼";
+  content: "";
   font-size: 0.75rem;
   transition: transform 0.2s ease;
 }
