@@ -119,3 +119,6 @@ ml_training/processed_data/
 *.so
 *.lib
 *.h.inc
+PrivacyGuard.git/
+..bfg-report/
+PrivacyGuard.git/
