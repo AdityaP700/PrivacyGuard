@@ -83,10 +83,8 @@ Thumbs.db
 # Chrome Extension
 *.crx
 *.pem
-# ML Training data and models
-# Large ML training data and models
+
 ml_training/trained_model/
-ml_training/processed_data/
 ml_training/datasets/
 ml_training/phishing_detector_saved_model/
 
@@ -103,3 +101,21 @@ ieee_phishing_urls.txt
 
 # Keep only necessary model files
 !js/tfjs.model/model.json
+
+# Ignore virtual env folders
+ml_training/.venv/
+ml_training/venv-3.11/
+ml_training/venv311/
+# Ignore virtual environment
+ml_training/.venv/
+
+# Ignore datasets
+ml_training/datasets/
+ml_training/processed_data/
+
+# Ignore TensorFlow/PyTorch/numpy compiled files
+*.dll
+*.pyd
+*.so
+*.lib
+*.h.inc
