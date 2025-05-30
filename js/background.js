@@ -33,9 +33,9 @@ chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
     const storageKey = `${LAST_ANALYSIS_KEY_PREFIX}${tabId}`;
     chrome.storage.local.remove(storageKey, () => {
         if (chrome.runtime.lastError) {
-            // console.warn(`Error removing cached analysis for closed tab ${tabId}:`, chrome.runtime.lastError.message);
+             console.warn(`Error removing cached analysis for closed tab ${tabId}:`, chrome.runtime.lastError.message);
         } else {
-            // console.log(`Cached analysis for closed tab ${tabId} removed.`);
+            console.log(`Cached analysis for closed tab ${tabId} removed.`);
         }
     });
 });
