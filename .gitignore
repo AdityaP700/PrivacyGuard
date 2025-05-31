@@ -109,8 +109,8 @@ ml_training/venv311/
 ml_training/.venv/
 
 # Ignore datasets
-ml_training/dat
 ml_training/datasets/
+ml_training/processed_data/
 
 # Ignore TensorFlow/PyTorch/numpy compiled files
 *.dll
@@ -127,8 +127,12 @@ venv/
 
 # Dataset files (if you want to exclude)
 ml_training/datasets/
-
+js/config.js
 # Any other big binaries or outputs
 *.dll
 *.so
 *.jar
+config.js
+*/config.js
+js/config.js
+**/config.js
