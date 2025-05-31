@@ -1,12 +1,87 @@
+<!-- privacyguard/learn-more.html -->
 <!DOCTYPE html>
 <html>
 <head>
+  <title>About PrivacyGuard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="learn-more.css">
 </head>
 <body>
-  <div class="container p-3">
-    <h1 class="title is-4">About PrivacyGuard</h1>
-    <p>Learn more about site safety...</p>
+  <div class="container">
+    <div class="main-card">
+      <header class="header">
+        <h1>PrivacyGuard</h1>
+        <p>Advanced Web Protection & Anti-Phishing Shield</p>
+      </header>
+      
+      <div class="content">
+        <div class="intro">
+          <p>Intelligent website analysis to keep you safe from phishing attacks and malicious content.</p>
+          <button class="toggle-btn" id="toggleBtn">Learn How It Works</button>
+        </div>
+
+        <div class="details" id="details">
+          <div class="section">
+            <h3>Protection Levels</h3>
+            <div class="alert-grid">
+              <div class="alert-card safe">
+                <div>
+                  <span class="alert-indicator safe"></span>
+                  <strong>Safe</strong>
+                </div>
+                <p>Verified secure sites or your trusted whitelist</p>
+              </div>
+              <div class="alert-card warning">
+                <div>
+                  <span class="alert-indicator warning"></span>
+                  <strong>Caution</strong>
+                </div>
+                <p>HTTP connections or suspicious features detected</p>
+              </div>
+              <div class="alert-card danger">
+                <div>
+                  <span class="alert-indicator danger"></span>
+                  <strong>High Risk</strong>
+                </div>
+                <p>Potential phishing or malware threats identified</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Real-time phishing detection</li>
+              <li>Local data processing for privacy</li>
+              <li>Customizable whitelist management</li>
+              <li>Advanced threat analysis</li>
+              <li>Zero data collection policy</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="privacy-note">
+          <strong>Privacy First</strong>
+          <p>All analysis happens locally on your device. Your browsing data never leaves your computer.</p>
+        </div>
+
+        <div class="action-buttons">
+          <button class="action-btn btn-safe" id="safeBtn">
+            <span></span> Mark as Safe
+          </button>
+          <button class="action-btn btn-proceed" id="proceedBtn">
+            <span></span> Proceed Anyway
+          </button>
+          <button class="action-btn btn-block" id="blockBtn">
+            <span></span> Block Site
+          </button>
+          <button class="action-btn btn-info" id="infoBtn">
+            <span></span> More Info
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+  <script src="learn-more.js"></script>
 </body>
 </html>
