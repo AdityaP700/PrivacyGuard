@@ -110,6 +110,7 @@ ml_training/.venv/
 
 # Ignore datasets
 ml_training/dat
+ml_training/datasets/
 
 # Ignore TensorFlow/PyTorch/numpy compiled files
 *.dll
@@ -120,3 +121,14 @@ ml_training/dat
 PrivacyGuard.git/
 ..bfg-report/
 PrivacyGuard.git/
+# Python virtual env
+.venv/
+venv/
+
+# Dataset files (if you want to exclude)
+ml_training/datasets/
+
+# Any other big binaries or outputs
+*.dll
+*.so
+*.jar
